@@ -26,6 +26,10 @@ public class Validator {
             throw new NoSuchElementException("ERROR: E-Mail address does not start with valid username!");
         }
 
+        if (!isDomainValid(cleanMail)) {
+            throw new NoSuchElementException("ERROR: E-Mail address does not contain valid domain name!");
+        }
+
         if (!isRootDomainValid(cleanMail)) {
             throw new NoSuchElementException("ERROR: E-Mail address does not contain valid root domain!");
         }
@@ -57,6 +61,31 @@ public class Validator {
     private static boolean isUsernameValid(String email) {
         String[] splittEmail = email.split("@");
         return splittEmail[0] != null && splittEmail[0].length() >= 3;
+    }
+
+    /**
+     * Validates whether the domain name contains at least 3 chars after @ sign.
+     * @param email String - valid e-mail address as a text.
+     * @return boolean - true if e-mail starts with at least 3 chars after @, false if not.
+     */
+    private static boolean isDomainValid(String email) {
+        String[] splittEmail = email.split("@");
+        if (splittEmail != null && splittEmail.length == 2) {
+
+            String domainPart = splittEmail[1];
+            if (domainPart.charAt(0) != '.'
+                    && domainPart.charAt(domainPart.length()-1) != '.') {
+
+                //TODO: validate duplicates of ".". I.E. ".."
+                String[] domainParts = domainPart.split("\\.");
+                if (domainParts != null && domainParts.length > 1) {
+
+                    String rootDomain = domainParts[domainParts.length - 2];
+                    return rootDomain.length() >= 3;
+                }
+            }
+        }
+        return false;
     }
 
     /**
