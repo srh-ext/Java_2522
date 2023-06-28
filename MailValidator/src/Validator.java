@@ -25,12 +25,18 @@ public class Validator {
 
     /**
      * Validates whether the string contains "@" sign.
+     * Verify that "@" sign count == 1.
      * @param email String - valid e-mail address as a text.
      * @return boolean - true if e-mail contains valid "@" sign, false if not.
      */
     private static boolean containsMailSign(String email) {
-        //TODO: verify that @ sign count == 1
-        return email.contains("@");
+        int count = 0;
+                //email.length() - email.replace("@", "").length();
+        for (int i = 0; i < email.length(); i++) {
+            if (email.charAt(i) == '@') count++;
+        }
+
+        return count == 1;
     }
 
     /**
