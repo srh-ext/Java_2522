@@ -63,6 +63,14 @@ public class Validator {
         return splittEmail[0] != null && splittEmail[0].length() >= 3;
     }
 
+    /**
+     * Validates whether the domain name contains at least 3 chars after @ sign.
+     * Validates whether the root domain name contains at least 2 chars.
+     * @param email String - valid e-mail address as a text.
+     * @param isRoot boolean - true if the root name should be validated, false if domain.
+     * @return boolean - true if e-mail starts with at least 3 chars after @
+     * or root domain contains at least 2 chars, false if not.
+     */
     private static boolean areDomainAndRootDomainValid(String email, boolean isRoot) {
         String[] splittEmail = email.split("@");
         if (splittEmail != null && splittEmail.length == 2) {
@@ -88,60 +96,6 @@ public class Validator {
                 }
             }
         }
-        return false;
-    }
-
-    /**
-     * Validates whether the domain name contains at least 3 chars after @ sign.
-     * @param email String - valid e-mail address as a text.
-     * @return boolean - true if e-mail starts with at least 3 chars after @, false if not.
-     */
-    private static boolean isDomainValid(String email) {
-        String[] splittEmail = email.split("@");
-        if (splittEmail != null && splittEmail.length == 2) {
-
-            String domainPart = splittEmail[1];
-            if (domainPart.charAt(0) != '.'
-                    && domainPart.charAt(domainPart.length()-1) != '.') {
-
-                //TODO: validate duplicates of ".". I.E. ".."
-                String[] domainParts = domainPart.split("\\.");
-                if (domainParts != null && domainParts.length > 1) {
-
-                    String rootDomain = domainParts[domainParts.length - 2];
-                    return rootDomain.length() >= 3;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Validates whether the end of the given email address contains "."
-     * and at least 2 chars.
-     * @param email String - valid e-mail address as a text.
-     * @return boolean - true if e-mail contains valid "."
-     * and at least 2 chars at the end, false if not.
-     */
-    private static boolean isRootDomainValid(String email) {
-        String[] splittEmail = email.split("@");
-        if (splittEmail != null && splittEmail.length == 2) {
-
-            String domainPart = splittEmail[1];
-            if (domainPart.charAt(0) != '.'
-                    && domainPart.charAt(domainPart.length()-1) != '.') {
-
-                //TODO: validate duplicates of ".". I.E. ".."
-                String[] domainParts = domainPart.split("\\.");
-                if (domainParts != null && domainParts.length > 1) {
-
-                    String rootDomain = domainParts[domainParts.length - 1];
-                    // searches for ".de" or ".org" or ".store"
-                    return rootDomain.length() >= 2;
-                }
-            }
-        }
-
         return false;
     }
 }
