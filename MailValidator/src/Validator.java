@@ -27,11 +27,11 @@ public class Validator {
         }
 
         if (!areDomainAndRootDomainValid(cleanMail, true)) {
-            throw new NoSuchElementException("ERROR: E-Mail address does not contain valid domain name!");
+            throw new NoSuchElementException("ERROR: E-Mail address does not contain valid root domain name!");
         }
 
         if (!areDomainAndRootDomainValid(cleanMail, false)) {
-            throw new NoSuchElementException("ERROR: E-Mail address does not contain valid root domain!");
+            throw new NoSuchElementException("ERROR: E-Mail address does not contain valid domain name!");
         }
 
         return true;

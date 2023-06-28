@@ -1,11 +1,31 @@
+import java.sql.SQLOutput;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        test();
+        //test();
+        startUi();
     }
 
-    public static void test() {
+    private static void startUi() {
+        Scanner scanner = new Scanner(System.in);
+        while(true) {
+            try {
+                System.out.print("Enter E-Mail Address > ");
+                String email = scanner.nextLine();
+                System.out.println("You entered: " + email);
+
+                if (Validator.isValid(email)) break;
+
+            } catch (NullPointerException | NoSuchElementException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        System.out.println("Entered E-Mail Address is valid.");
+    }
+
+    private static void test() {
         //1 check for null
         try {
             Validator.isValid(null);
