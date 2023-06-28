@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class Validator {
@@ -17,7 +18,11 @@ public class Validator {
         String cleanMail = email.trim();
 
         if (!containsMailSign(cleanMail)) {
-            throw new NoSuchElementException("ERROR: E-Mail address does not contains '@' sign!");
+            throw new NoSuchElementException("ERROR: E-Mail address does not contain or has to many '@' sign!");
+        }
+
+        if (!isRootDomainValid(cleanMail)) {
+            throw new NoSuchElementException("ERROR: E-Mail address does not contain valid root domain!");
         }
 
         return true;
@@ -51,18 +56,18 @@ public class Validator {
         if (splittEmail != null && splittEmail.length == 2) {
 
             String domainPart = splittEmail[1];
-            //if (domainPart.charAt(0) != '.'
-            //        && domainPart.charAt(domainPart.length()-1) != '.') return false;
+            System.out.println("DEBUGGING: " + domainPart);
 
             if (domainPart.charAt(0) != '.'
                     && domainPart.charAt(domainPart.length()-1) != '.') {
 
                 //TODO: validate duplicates of ".". I.E. ".."
-                String[] domainParts = splittEmail[1].split(".");
+                String[] domainParts = domainPart.split("\\.");
                 if (domainParts != null && domainParts.length > 1) {
 
                     String rootDomain = domainParts[domainParts.length - 1];
-                    return rootDomain.length() > 1;
+                    // searches for ".de" or ".org" or ".store"
+                    return rootDomain.length() >= 2;
                 }
             }
         }

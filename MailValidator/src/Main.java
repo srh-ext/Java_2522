@@ -6,31 +6,38 @@ public class Main {
     }
 
     public static void test() {
-        // check for null
+        //1 check for null
         try {
             Validator.isValid(null);
         } catch (NullPointerException ex) {
             System.out.println(ex.getMessage());
         }
 
-        // check for empty
+        //2 check for empty
         try {
             Validator.isValid(" ");
         } catch (NullPointerException ex) {
             System.out.println(ex.getMessage());
         }
 
-        // check for @ - valid
+        //3 check for @ - valid
         try {
             System.out.println("Valid mail: " + Validator.isValid("asfasdfasfsadf.de"));
         } catch (NullPointerException | NoSuchElementException ex) {
             System.out.println(ex.getMessage());
         }
 
-        // check for @ - valid
+        //4 check for @ - valid
         try {
             System.out.println("Valid mail: " + Validator.isValid("asfasdf@asfsadf.de"));
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException | NoSuchElementException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        //5 check for @ duplicates - not valid
+        try {
+            System.out.println("NOT Valid mail: " + Validator.isValid("asfa@sdf@asfsadf.de"));
+        } catch (NullPointerException | NoSuchElementException ex) {
             System.out.println(ex.getMessage());
         }
     }
